@@ -79,7 +79,8 @@ async function verify() {
         const { paid } = await response.json();
         console.log(paid)
         return paid;
-        
+
+       
 
     } catch (err) {
         console.log(err)
@@ -95,9 +96,9 @@ async function verify() {
 
      if(localStorage.getItem('session')) {
      if(isVerified) {
-         alert("tack")
+         alert("Beställningen är mottagen. Tack för ditt köp!")
      } else {
-         alert("jaha")
+         alert("Beställningen är avbruten. Försök gärna igen!")
      }
      localStorage.removeItem('session')
 } 
