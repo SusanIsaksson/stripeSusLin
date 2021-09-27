@@ -29,7 +29,7 @@ const addProduct = async (productKey) => {
     document.getElementById("cartCounter").innerHTML = cart[productKey].quantity;
     console.log({ cart, line_items: Object.values(cart) });
 
-
+    localStorage.setItem("cart", JSON.stringify(cart))
 }
 
 document.getElementById("addProd").addEventListener("click", () => addProduct ("TestProduct"))
