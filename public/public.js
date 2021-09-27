@@ -51,7 +51,7 @@ async function checkoutBtn() {
             })
         });
         const { id } = await response.json();
-        sessionStorage.setItem("session", id)
+        localStorage.setItem("session", id)
 
         stripe.redirectToCheckout({ sessionId: id })
 
@@ -62,9 +62,10 @@ async function checkoutBtn() {
 
 async function verify() {
     try {
-        const stripeSessionId = sessionStorage.getItem('session')
+        const sessionId = localStorage.getItem('session')
+        console.log(sessionId)
 
-        if (!stripeSessionId) {
+        if (!sessionId) {
             throw new Error("inget session ID");
         }
 
@@ -72,11 +73,13 @@ async function verify() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                stripeSessionId
+                sessionId
             })
         });
-        const { id } = await response.json();
-        return true;
+        const { paid } = await response.json();
+        console.log(paid)
+        return paid;
+        
 
     } catch (err) {
         console.log(err)
@@ -86,8 +89,19 @@ async function verify() {
 
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
- function main() {
-     verify();
+ async function main() {
+     const isVerified = await verify();
+     console.log(isVerified)
+
+     if(localStorage.getItem('session')) {
+     if(isVerified) {
+         alert("tack")
+     } else {
+         alert("jaha")
+     }
+     localStorage.removeItem('session')
+} 
+
 }
 
 main();

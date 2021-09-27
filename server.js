@@ -15,9 +15,7 @@ server.use('/api', express.json());
 //aktivera server.use = tar över server.get
 server.use(express.static('public'));
 
-/* server.get('/', (req, res) => {
-    res.send('Hello World!')
-}) */
+
 
 //hämtar filen från "products.json" - se även i server.post/verify
 server.get('/api/admin/orders', async (req, res) => {
@@ -64,6 +62,8 @@ server.post('/api/session/verify', async (req, res) => {
     res.status(200).json({ id: session.id })
     console.log(session)
 })
+
+
 
 server.listen(port, () => {
     console.log(`Tjohoo - vår server är igång på port ` + port)
