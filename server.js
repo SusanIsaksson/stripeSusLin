@@ -14,17 +14,15 @@ server.use('/api', express.json());
 //aktivera server.use = tar över server.get
 server.use(express.static('public'));
 
-/* server.get('/', (req, res) => {
-    res.send('Hello World!')
-}) */
+
 
 server.post('/api/session/new', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: req.body.line_items,
         mode: "payment",
-        success_url: "http://localhost:3000/checkout_success.html",
-        cancel_url: "http://localhost:3000/checkout_failed.html"
+        success_url: "http://localhost:3000/",
+        cancel_url: "http://localhost:3000/"
     });
     
     res.status(200).json({ id: session.id })
@@ -33,11 +31,19 @@ server.post('/api/session/new', async (req, res) => {
 server.post('/api/session/verify', async (req, res) => {
     const sessionId = req.body.sessionId
 
-    const session = await stripe.checkout.sessions.retrive(sessionId)
-    console.log(session)
-    res.status(200).json({ id: session.id })
-    console.log(session)
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
+
+    if(session.payment_status == "paid") {
+        res.status(200).json({ paid: true })
+
+    } else {
+        res.status(200).json({ paid: false })
+    }
+    
+    
 })
+
+
 
 server.listen(port, () => {
     console.log(`Tjohoo - vår server är igång på port ` + port)
