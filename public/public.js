@@ -1,6 +1,7 @@
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
-let stripe = Stripe('pk_test_51JbhAtI15NR3oivl1Rxdgpnad3GN14mR2OTtJbM2e6VNPEa1cYL7PTMdHBlpU2aUGa4ncdbvUyBiUZ16303LmKq100BkngM59V');
+let stripe = Stripe('pk_test_51JZwfhIMTHb0TS9a5j5WbnuPHSwsdmvhjvM4FCmlQP9L6dKJhsSekUu99eCFTAy0pqMeHyGAQSejOfPCzlLyd3TL006JYP3wyJ');
+//let stripe = Stripe('pk_test_51JbhAtI15NR3oivl1Rxdgpnad3GN14mR2OTtJbM2e6VNPEa1cYL7PTMdHBlpU2aUGa4ncdbvUyBiUZ16303LmKq100BkngM59V');
 
 const productDB = {
     "TestProduct": {
@@ -30,7 +31,7 @@ const addProduct = async (productKey) => {
     console.log({ cart, line_items: Object.values(cart) });
 
 
-}
+};
 
 document.getElementById("addProd").addEventListener("click", () => addProduct ("TestProduct"))
 
@@ -78,7 +79,8 @@ async function verify() {
         const { paid } = await response.json();
         console.log(paid)
         return paid;
-        
+
+       
 
     } catch (err) {
         console.log(err)
@@ -94,9 +96,9 @@ async function verify() {
 
      if(localStorage.getItem('session')) {
      if(isVerified) {
-         alert("tack")
+         alert("Beställningen är mottagen. Tack för ditt köp!")
      } else {
-         alert("jaha")
+         alert("Beställningen är avbruten. Försök gärna igen!")
      }
      localStorage.removeItem('session')
 } 
