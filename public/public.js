@@ -1,7 +1,28 @@
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
+
 const productDB = {
-    "TestProduct": {
+    "Bridedress1": {
+        description: "produktbeskrivning",
+        price_data: {
+            currency: "sek",
+            product_data: {
+                name: "produktnamn"
+            },
+            unit_amount: 1000
+        },
+    },
+    "Bridedress2": {
+        description: "produktbeskrivning",
+        price_data: {
+            currency: "sek",
+            product_data: {
+                name: "produktnamn"
+            },
+            unit_amount: 1000
+        },
+    },
+    "Bridedress3": {
         description: "produktbeskrivning",
         price_data: {
             currency: "sek",
@@ -12,7 +33,7 @@ const productDB = {
         },
     },
     
-};
+}
 
 
 const addProduct = async (productKey) => {
@@ -36,9 +57,9 @@ const addProduct = async (productKey) => {
     localStorage.setItem("cart", JSON.stringify(cart))
 };
 
-document.getElementById("addProd").addEventListener("click", () => addProduct ("TestProduct"))
-
-
+document.getElementById("buy_bridedressOne").addEventListener("click", () => addProduct ("Bridedress1"))
+document.getElementById("buy_bridedressTwo").addEventListener("click", () => addProduct ("Bridedress2"))
+document.getElementById("buy_bridedressThree").addEventListener("click", () => addProduct ("Bridedress2"))
 
 async function verify() {
     try {
@@ -68,20 +89,23 @@ async function verify() {
 
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
-async function main() {
-    const isVerified = await verify();
-    console.log(isVerified)
+ async function main() {
+     const isVerified = await verify();
+     console.log(isVerified)
 
-    if(localStorage.getItem('session')) {
-        if(isVerified) {
-            alert("Beställningen är mottagen. Tack för ditt köp!")
-            localStorage.removeItem("cart")
-            localStorage.removeItem('session')
-        } else {
-            alert("Beställningen är avbruten. Försök gärna igen!")
-        }
-    }
+     if(localStorage.getItem('session')) {
+     if(isVerified) {
+         alert("Beställningen är mottagen. Tack för ditt köp!")
+         localStorage.removeItem("cart")
+         localStorage.removeItem('session')
+     } else {
+         alert("Beställningen är avbruten. Försök gärna igen!")
+     }
+     
+     
+} 
 
 }
+
 main();
 

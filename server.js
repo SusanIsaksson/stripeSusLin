@@ -24,6 +24,9 @@ server.get('/api/admin/orders', async (req, res) => {
     res.json(orderList) 
 }) 
 
+
+
+
 server.post('/api/session/verify', async (req, res) => {
     const session = await stripe.checkout.sessions.retrieve(req.body.sessionId)
 
@@ -65,8 +68,7 @@ server.post('/api/session/new', async (req, res) => {
             us123uu_testprodukt: 1,
         },
         success_url: 'http://localhost:3000/?session_id={CHECKOUT_SESSION_ID}',
-        /* success_url: "http://localhost:3000/", */
-        cancel_url: "http://localhost:3000/checkout_failed.html"
+        cancel_url: "http://localhost:3000/"
     });
     
     res.status(200).json({ id: session.id })
