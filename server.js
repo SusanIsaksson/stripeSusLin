@@ -57,7 +57,7 @@ server.post('/api/session/new', async (req, res) => {
             us123uu_testprodukt: 1,
         },
         success_url: 'http://localhost:3000/?session_id={CHECKOUT_SESSION_ID}',
-        //success_url: "http://localhost:3000/checkout_success.html",
+        /* success_url: "http://localhost:3000/", */
         cancel_url: "http://localhost:3000/checkout_failed.html"
     });
     
@@ -71,6 +71,7 @@ server.post('/api/session/verify', async (req, res) => {
 
     if(session.payment_status == 'paid') {
         res.status(200).json({ paid: true})
+        //TODO:spara ordern på servern
     }   else {
         res.status(200).json({ paid: false}) 
 
@@ -106,6 +107,17 @@ server.post('/api/session/verify', async (req, res) => {
     
     };
 
+    if(session.payment_status == "paid") {
+
+        console.log(session)
+        res.status(200).json({ paid: true })
+        } else {
+        res.status(200).json({ paid: false })
+    }
+    
+   
+})
+
 
 
     //spara i json
@@ -114,7 +126,7 @@ server.post('/api/session/verify', async (req, res) => {
     /* console.log(session)
     res.status(200).json({ id: session.id })
     console.log(session) */
-})
+/* }) */
 
 
 
