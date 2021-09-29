@@ -1,6 +1,5 @@
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
-
 const productDB = {
     "TestProduct": {
         description: "produktbeskrivning",
@@ -13,7 +12,7 @@ const productDB = {
         },
     },
     
-}
+};
 
 
 const addProduct = async (productKey) => {
@@ -69,23 +68,20 @@ async function verify() {
 
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
- async function main() {
-     const isVerified = await verify();
-     console.log(isVerified)
+async function main() {
+    const isVerified = await verify();
+    console.log(isVerified)
 
-     if(localStorage.getItem('session')) {
-     if(isVerified) {
-         alert("Beställningen är mottagen. Tack för ditt köp!")
-         localStorage.removeItem("cart")
-         localStorage.removeItem('session')
-     } else {
-         alert("Beställningen är avbruten. Försök gärna igen!")
-     }
-     
-     
-} 
+    if(localStorage.getItem('session')) {
+        if(isVerified) {
+            alert("Beställningen är mottagen. Tack för ditt köp!")
+            localStorage.removeItem("cart")
+            localStorage.removeItem('session')
+        } else {
+            alert("Beställningen är avbruten. Försök gärna igen!")
+        }
+    }
 
 }
-
 main();
 

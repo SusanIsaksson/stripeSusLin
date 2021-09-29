@@ -6,9 +6,7 @@ const express = require('express');
 const server = express();
 const stripe = require('stripe')(secretKey)
 const fs = require('fs')
-const jsonDB = {
 
-};
 
 const port = 3000;
 
@@ -20,32 +18,42 @@ server.use(express.static('public'));
 
 //hämtar filen från "products.json" - se även i server.post/verify
 server.get('/api/admin/orders', async (req, res) => {
-    res.status(200).json({jsonDB})
-    /*const raw = fs.readFileSync('products.json')
+    
+    const raw = fs.readFileSync('orders.json')
     const orderList = JSON.parse(raw)
-    res.json(orderList) */
+    res.json(orderList) 
 }) 
 
-server.get('/api/session/success', async (req, res) => {
-    const sessionId = await stripe.checkout.sessions.retrieve(req.query.sessionId)
+server.post('/api/session/verify', async (req, res) => {
+    const session = await stripe.checkout.sessions.retrieve(req.body.sessionId)
 
-    res.sendStatus( true );
-    console.log(sessionId)
-})
-/* server.post('/api/', async (req, res) => {
-    try {
-        const raw = fs.readFileSync('products.json')
-        const orderList = JSON.parse(raw)
-        console.log(orderList)
-        orderList.push(req.body)
-        fs.writeFileSync('products.json', JSON.stringify(orderList))
-        res.json(true)
+    if(session.payment_status == 'paid') {
+        res.status(200).json({ paid: true})
 
-    }   catch(err) {
-        console.log(err)
-        res.status(500).json(false)
+        const key = session.payment_intent;
+
+        //const paymentIntent = await stripe.paymentIntent.retrieve(key);
+        //console.log(paymentIntent)
+
+        const raw = fs.readFileSync('orders.json') 
+            const orderDB = JSON.parse(raw)
+            console.log(orderDB)   
+            
+            if (!orderDB[key]) {
+                orderDB[key] = {
+                    //hämtar data från rad 45-50 inkl hårdkodad metadata och modifierar till det vi vill ha
+                    amount: session.amount_total,
+                    customerId: session.customer,
+                    customerEmail: session.customer_details.email,
+                    metadata: session.metadata
+                }
+            }
+            fs.writeFileSync('orders.json', JSON.stringify(orderDB))
+    }   else {
+        res.status(200).json({ paid: false}) 
     }
-});  */
+})
+
 
 //ny session skapas
 server.post('/api/session/new', async (req, res) => {
@@ -63,70 +71,6 @@ server.post('/api/session/new', async (req, res) => {
     
     res.status(200).json({ id: session.id })
 })
-
-server.post('/api/session/verify', async (req, res) => {
-    const sessionId = req.body.sessionId
-
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-    if(session.payment_status == 'paid') {
-        res.status(200).json({ paid: true})
-        //TODO:spara ordern på servern
-    }   else {
-        res.status(200).json({ paid: false}) 
-
-        const key = session.payment_intent;
-
-        const paymentIntent = await stripe.paymentIntent.retrieve(key);
-        console.log(paymentIntent)
-
-
-        if (!jsonDB[key]) {
-            jsonDB[key] = {
-                //hämtar data från rad 45-50 inkl hårdkodad metadata och modifierar till det vi vill ha
-                amount: session.amount_total,
-                customerId: session.customer,
-                customerEmail: session.customer_details.email,
-                metadata: session.metadata
-            }
-        }
-        //test att spara i products.json
-        /*const orderList = {
-            amount: '100 kr',
-            customerId: '123Kund',
-            customerEmail: 'susan.isaksson@medieinstitutet.se',
-            metadata: session.metadata
-        };
-         
-        const orderData = JSON.stringify(orderList);
-        fs.writeFileSync('products.json', orderData); */
-
-        /* fs.writeFileSync('products.json', JSON.stringify(jsonDB[key]));
-        res.json(true)
-        console.log(jsonDB) */
-    
-    };
-
-    if(session.payment_status == "paid") {
-
-        console.log(session)
-        res.status(200).json({ paid: true })
-        } else {
-        res.status(200).json({ paid: false })
-    }
-    
-   
-})
-
-
-
-    //spara i json
-    /* const save = await makeRequest('http://localhost:3000/verify', "POST", { jsonDB: sessionId})
-    console.log(save) */
-    /* console.log(session)
-    res.status(200).json({ id: session.id })
-    console.log(session) */
-/* }) */
 
 
 
