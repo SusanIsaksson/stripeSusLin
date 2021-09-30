@@ -9,7 +9,7 @@ const productDB = {
             product_data: {
                 name: "Ladybird"
             },
-            unit_amount: 22000
+            unit_amount: 2200000 
         },
     },
     "Morilee Princess": {
@@ -19,7 +19,7 @@ const productDB = {
             product_data: {
                 name: "Morilee Princess"
             },
-            unit_amount: 56000
+            unit_amount: 5600000
         },
     },
     "Sincerity": {
@@ -29,7 +29,7 @@ const productDB = {
             product_data: {
                 name: "Sincerity"
             },
-            unit_amount: 31000
+            unit_amount: 3100000
         },
     },
     
