@@ -111,4 +111,5 @@ a {
     flex-direction: row;
     align-items: center;
     margin-top: 20px;
+    flex-direction: column;
 }
