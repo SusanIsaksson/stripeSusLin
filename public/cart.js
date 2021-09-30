@@ -35,43 +35,50 @@ async function printFromLocal() {
     let cart = JSON.parse(localStorage.getItem("cart"))
     console.log(cart)
 
-    if(cart == null) {
+    if (cart == null) {
         cart = {}
-    } 
+    }
 
     Object.keys(cart).forEach(key => {
         console.log(key)
-        let body = document.getElementById("body")
+        let cartCardDiv = document.getElementById("cartCardDiv")
 
         let productCardDiv = document.createElement("div")
+        productCardDiv.classList = "card"
 
         let productCard = document.createElement("div")
-        
+        productCard.classList = "container"
+
+        /* let productImg = document.createElement("img")
+        productImg.src = "./assets/" + cart[key].img */
+
         let productTitle = document.createElement("h2")
         productTitle.innerText = key
 
-        let productImg = document.createElement("img")
-        //productImg.src =
-      
         let productPrice = document.createElement("h5")
-        productPrice.innerText = cart[key].price_data.unit_amount
-        
+        productPrice.innerText = "Pris: " + cart[key].price_data.unit_amount
+
         let productQuantity = document.createElement("h5")
-        productQuantity.innerText = cart[key].quantity
+        productQuantity.innerText = "Antal: " + cart[key].quantity
 
-                //Appendar produkter
-                productCardDiv.appendChild(productCard)
-                productCard.appendChild(productImg)
-                productCard.appendChild(productTitle)
-                productCard.appendChild(productPrice)
-                productCard.appendChild(productQuantity)
-                
-                body.appendChild(productCardDiv)
+        let deleteBtn = document.createElement("button") 
+        deleteBtn.innerText = "Ta bort"
+        deleteBtn.style.width = "100px"
 
-            
+        //Appendar produkter
+        productCardDiv.appendChild(productCard)
+        productCard.appendChild(productTitle)
+        /* productCard.appendChild(productImg) */
+        productCard.appendChild(productPrice)
+        productCard.appendChild(productQuantity)
+        productCard.appendChild(deleteBtn)
+        
+        cartCardDiv.appendChild(productCardDiv)
+
+
 
     });
-            
+
 
 }
 
