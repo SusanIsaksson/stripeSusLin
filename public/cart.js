@@ -56,11 +56,11 @@ async function printFromLocal() {
         productTitle.innerText = key
 
         let productPrice = document.createElement("h5")
-        productPrice.innerText = "Pris: " + cart[key].price_data.unit_amount
+        productPrice.innerText = cart[key].price_data.unit_amount /100 + " kr"
+
 
         let productQuantity = document.createElement("h5")
-        productQuantity.innerText = "Antal: " + cart[key].quantity
-
+        productQuantity.innerText = "Antal: " + cart[key].quantity 
         let deleteBtn = document.createElement("button") 
         deleteBtn.innerText = "Ta bort"
         deleteBtn.style.width = "100px"
