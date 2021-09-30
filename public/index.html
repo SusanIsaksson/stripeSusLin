@@ -1,66 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zeyada&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
     <script defer src="public.js"></script>
     <link rel="stylesheet" href="./style.css">
     <title>SUSLIN STORE</title>
 </head>
+
 <body>
     <div id="headerDiv">
-        <div id="headerTitle">BUTIKSNAMN</div>
-        <div id="headerp"><p>Vi säljer *** till fantastiska priser och högsta kvalité.</p></div>
-        <div id="headerCounter"><h4 id="cartCounter">0 </h4> &nbsp;<a href="cart.html">CART</a></div>
+        <div id="headerTitle"><a href="index.html"><h1>The Wedding boutique</h1></a></div>
+        <div id="headerp">
+            <p id="ptitle">Vi säljer bröllopsklänningar till fantastiska priser och högsta kvalité.</p>
+        </div>
+        <div id="headerCounter">
+            <h4 id="cartCounter">0 </h4> &nbsp;<a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        </div>
     </div>
+
+    <div class="w3-content w3-section" style="max-width:500px">
+        <img class="mySlides" src="./assets/wedd2.png">
+        <img class="mySlides" src="./assets/wedd.png">
+        <img class="mySlides" src="./assets/wedd3.png">
+      </div>
 
     <div id="cardDiv">
-        
-            <div class="card">
-                <img id="img" src="./assets/dressThree.jpg" alt="Avatar" style="width:100%">
-                <div class="container">
-                  <h4><b>Bridedress1</b></h4> 
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
+
+        <div class="card">
+            <img id="img" src="./assets/dressThree.jpg" alt="Avatar" style="width:100%">
+            <div class="container">
+                <h4><b>Ladybird</b></h4>
+                <p>Klänning med fin spets. Passar till strandbröllop</p>
+            </div>
+            <div class="containerTwo">
+                <h5><b>Pris: 22 000kr</b></h5>
+                <button id="buy_bridedressOne">Lägg till</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img id="img" src="./assets/dressTwo.jpg" alt="Avatar" style="width:100%">
+            <div class="container">
+                <h4><b>Morilee Princess</b></h4>
+                <p>Vacker princessklänning i spets och axelbandslös.</p>
                 <div class="containerTwo">
-                    <h4><b>Pris</b></h4>
-                    <button id="buy_bridedressOne">Lägg till Bridedress1</button>
+                    <h5><b>Pris: 56 000kr</b></h5>
+                    <button id="buy_bridedressTwo">Lägg till</button>
                 </div>
-              </div>
+            </div>
+        </div>
 
-              <div class="card">
-                <img id="img" src="./assets/dressTwo.jpg" alt="Avatar" style="width:100%">
-                <div class="container">
-                  <h4><b>Produktnamn</b></h4> 
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <div class="containerTwo">
-                    <h4><b>Pris</b></h4>
-                    <button id="buy_bridedressTwo">Lägg till Bridedress2</button>
+        <div class="card">
+            <img id="img" src="./assets/dressOne.jpg" alt="Avatar" style="width:100%">
+            <div class="container">
+                <h4><b>Sincerity</b></h4>
+                <p>Klänning med vacker spets. Figursydd upptill med fint släp.</p>
+                <div class="containerTwo">
+                    <h5><b>Pris: 31 000kr</b></h5>
+                    <button id="buy_bridedressThree">Lägg till</button>
                 </div>
-                </div>
-              </div>
-
-              <div class="card">
-                <img id="img" src="./assets/dressOne.jpg" alt="Avatar" style="width:100%">
-                <div class="container">
-                  <h4><b>Produktnamn</b></h4> 
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <div class="containerTwo">
-                    <h4><b>Pris</b></h4>
-                    <button id="buy_bridedressThree">Lägg till Bridedress3</button>
-                </div>
-                </div>
-              </div>
+            </div>
+        </div>
 
 
 
     </div>
-    
-    
-    
-    
-   
+
+    <script>
+        var myIndex = 0;
+        carousel();
+        
+        function carousel() {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          myIndex++;
+          if (myIndex > x.length) {myIndex = 1}    
+          x[myIndex-1].style.display = "block";  
+          setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+        </script>
+
+
+
+
 
 </body>
 

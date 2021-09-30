@@ -2,34 +2,34 @@
 
 
 const productDB = {
-    "Bridedress1": {
-        description: "produktbeskrivning",
+    "Ladybird": {
+        description: "Klänning med fin spets. Passar till strandbröllop",
         price_data: {
             currency: "sek",
             product_data: {
-                name: "produktnamn"
+                name: "Ladybird"
             },
-            unit_amount: 1000
+            unit_amount: 22000
         },
     },
-    "Bridedress2": {
-        description: "produktbeskrivning",
+    "Morilee Princess": {
+        description: "Vacker princessklänning i spets och axelbandslös.",
         price_data: {
             currency: "sek",
             product_data: {
-                name: "produktnamn"
+                name: "Morilee Princess"
             },
-            unit_amount: 1000
+            unit_amount: 56000
         },
     },
-    "Bridedress3": {
-        description: "produktbeskrivning",
+    "Sincerity": {
+        description: "Klänning med vacker spets. Figursydd upptill med fint släp.",
         price_data: {
             currency: "sek",
             product_data: {
-                name: "produktnamn"
+                name: "Sincerity"
             },
-            unit_amount: 1000
+            unit_amount: 31000
         },
     },
     
@@ -38,6 +38,7 @@ const productDB = {
 
 const addProduct = async (productKey) => {
     let cart = JSON.parse(localStorage.getItem("cart"));
+    
     const product = productDB[productKey];
 
     if(cart == null) {
@@ -57,9 +58,9 @@ const addProduct = async (productKey) => {
     localStorage.setItem("cart", JSON.stringify(cart))
 };
 
-document.getElementById("buy_bridedressOne").addEventListener("click", () => addProduct ("Bridedress1"))
-document.getElementById("buy_bridedressTwo").addEventListener("click", () => addProduct ("Bridedress2"))
-document.getElementById("buy_bridedressThree").addEventListener("click", () => addProduct ("Bridedress2"))
+document.getElementById("buy_bridedressOne").addEventListener("click", () => addProduct ("Ladybird"))
+document.getElementById("buy_bridedressTwo").addEventListener("click", () => addProduct ("Morilee Princess"))
+document.getElementById("buy_bridedressThree").addEventListener("click", () => addProduct ("Sincerity"))
 
 async function verify() {
     try {
