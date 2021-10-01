@@ -66,8 +66,7 @@ server.post('/api/session/new', async (req, res) => {
         payment_method_types: ['card'],
         line_items: req.body.line_items,
         mode: "payment",
-        metadata: {
-        },
+        
         success_url: 'http://localhost:3000/?session_id={CHECKOUT_SESSION_ID}',
         cancel_url: "http://localhost:3000/"
     });
