@@ -16,7 +16,6 @@ async function checkoutBtn() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 line_items: Object.values(cart),
-                metadata: cart,
             })
         });
         const { id } = await response.json();
@@ -35,7 +34,6 @@ printFromLocal()
 async function printFromLocal() {
     document.getElementById("cartCardDiv").innerText = ""
     let cart = JSON.parse(localStorage.getItem("cart"))
-    console.log(cart)
 
     if (cart == null) {
         //cart = {}
@@ -48,16 +46,16 @@ async function printFromLocal() {
     for (const key in cart) {
         if (Object.hasOwnProperty.call(cart, key)) {
             const cartRow = cart[key];
-            counter+=cartRow.quantity
-            amount+=cartRow.price_data.unit_amount /100 * cartRow.quantity
+            counter += cartRow.quantity
+            amount += cartRow.price_data.unit_amount / 100 * cartRow.quantity
         }
     }
-document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
+    document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
 
 
 
     Object.keys(cart).forEach(key => {
-        
+
         let cartCardDiv = document.getElementById("cartCardDiv")
 
         let productCardDiv = document.createElement("div")
@@ -70,13 +68,13 @@ document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
         productTitle.innerText = key
 
         let productPrice = document.createElement("h5")
-        productPrice.innerText = cart[key].price_data.unit_amount /100 + " kr"
+        productPrice.innerText = cart[key].price_data.unit_amount / 100 + " kr"
 
 
         let productQuantity = document.createElement("h5")
-        productQuantity.innerText = "Antal: " + cart[key].quantity 
-        
-        let deleteBtn = document.createElement("button") 
+        productQuantity.innerText = "Antal: " + cart[key].quantity
+
+        let deleteBtn = document.createElement("button")
         deleteBtn.innerText = "Ta bort"
         deleteBtn.style.width = "100px"
 
@@ -91,7 +89,7 @@ document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
         productCard.appendChild(productPrice)
         productCard.appendChild(productQuantity)
         productCard.appendChild(deleteBtn)
-        
+
         cartCardDiv.appendChild(productCardDiv)
 
 
@@ -107,9 +105,9 @@ function removeProduct(key) {
     cart[key].quantity = cart[key].quantity || 0;
     cart[key].quantity--;
 
-    if(cart[key].quantity === 0) {
+    if (cart[key].quantity === 0) {
         delete cart[key]
-    } 
+    }
 
     localStorage.setItem("cart", JSON.stringify(cart))
     printFromLocal();

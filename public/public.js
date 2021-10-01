@@ -63,7 +63,8 @@ function updateCounter(cart) {
     let counter = 0;
 
     if (cart !== null) {
-        
+
+
         for (const key in cart) {
             if (Object.hasOwnProperty.call(cart, key)) {
                 const cartRow = cart[key];
@@ -85,7 +86,6 @@ document.getElementById("buy_bridedressThree").addEventListener("click", () => a
 async function verify() {
     try {
         const sessionId = localStorage.getItem('session')
-        console.log(sessionId)
 
         if (!sessionId) {
             throw new Error("inget session ID");
@@ -112,13 +112,13 @@ async function verify() {
 
 async function main() {
     const isVerified = await verify();
-    console.log(isVerified)
 
     if (localStorage.getItem('session')) {
         if (isVerified) {
             alert("Betalningen är mottagen. Tack för ditt köp!")
             localStorage.removeItem("cart")
             localStorage.removeItem('session')
+            document.getElementById("cartCounter").innerHTML = 0
         } else {
             alert("Betalningen är avbruten. Försök gärna igen!")
         }

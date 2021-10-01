@@ -61,12 +61,6 @@ server.post('/api/session/verify', async (req, res) => {
 //ny session skapas
 server.post('/api/session/new', async (req, res) => {
 
-    /* let metadata = {}
-    for (let i = 0; i < req.body.line_items.length; i++) {
-        const = req.body.line_items[i];
-        
-    } */
-
     const session = await stripe.checkout.sessions.create({
     
         payment_method_types: ['card'],
