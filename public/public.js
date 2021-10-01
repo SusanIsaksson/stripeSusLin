@@ -115,12 +115,12 @@ async function main() {
 
     if (localStorage.getItem('session')) {
         if (isVerified) {
-            alert("Beställningen är mottagen. Tack för ditt köp!")
+            alert("Betalningen är mottagen. Tack för ditt köp!")
             localStorage.removeItem("cart")
             localStorage.removeItem('session')
             document.getElementById("cartCounter").innerHTML = 0
         } else {
-            alert("Beställningen är avbruten. Försök gärna igen!")
+            alert("Betalningen är avbruten. Försök gärna igen!")
         }
 
 
