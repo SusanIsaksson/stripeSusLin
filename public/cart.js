@@ -1,16 +1,16 @@
 
-//let stripe = Stripe('pk_test_51JZwfhIMTHb0TS9a5j5WbnuPHSwsdmvhjvM4FCmlQP9L6dKJhsSekUu99eCFTAy0pqMeHyGAQSejOfPCzlLyd3TL006JYP3wyJ');
-let stripe = Stripe('pk_test_51JbhAtI15NR3oivl1Rxdgpnad3GN14mR2OTtJbM2e6VNPEa1cYL7PTMdHBlpU2aUGa4ncdbvUyBiUZ16303LmKq100BkngM59V');
+let stripe = Stripe('pk_test_51JZwfhIMTHb0TS9a5j5WbnuPHSwsdmvhjvM4FCmlQP9L6dKJhsSekUu99eCFTAy0pqMeHyGAQSejOfPCzlLyd3TL006JYP3wyJ');
+//let stripe = Stripe('pk_test_51JbhAtI15NR3oivl1Rxdgpnad3GN14mR2OTtJbM2e6VNPEa1cYL7PTMdHBlpU2aUGa4ncdbvUyBiUZ16303LmKq100BkngM59V');
 
 async function checkoutBtn() {
 
     let cart = JSON.parse(localStorage.getItem("cart"));
     try {
-
-        if (Object.keys(cart).length == 0) {
+        
+        if (!cart || Object.keys(cart).length == 0) {
             throw new Error("You cart is empty!");
+      
         }
-
         const response = await fetch('api/session/new', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,7 +38,9 @@ async function printFromLocal() {
     console.log(cart)
 
     if (cart == null) {
-        cart = {}
+        //cart = {}
+        document.getElementById("emptyCart").innerText = "Din varukorg är tom, gå till..."
+        return       
     }
 
     let amount = 0;
@@ -51,6 +53,7 @@ async function printFromLocal() {
         }
     }
 document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
+
 
 
     Object.keys(cart).forEach(key => {
@@ -111,3 +114,4 @@ function removeProduct(key) {
     localStorage.setItem("cart", JSON.stringify(cart))
     printFromLocal();
 }
+

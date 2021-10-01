@@ -24,7 +24,7 @@ GitHub link: https://github.com/SusanIsaksson/stripeSusLin.git
        Ansvarig: Linda och Susan - KLAR
 
     6. Git & GitHub har använts. - KLAR
-    7. Projektmappen innehåller en README.md fil (läs ovan för mer info). - PÅGÅENDE ARBETE
+    7. Projektmappen innehåller en README.md fil (läs ovan för mer info). - KLART
 
     8. Uppgiften lämnas in i tid! - ÄR MÅLET
 
@@ -43,12 +43,15 @@ Enjoy our beautiful side with beautiful images for a pleasent experience for a l
 #### To install express, socket.io and nodemon, use npm install comand: 
     npm install express 
     npm install stripe
+    npm install dotenv
     npm install –g nodemon 
 
 #### Create a server file
     server.js
 
 and enter following code:
+
+    require('dotenv).config('.env');
 
     const express = require('express');
     const server = express();
@@ -57,6 +60,7 @@ and enter following code:
 
     const port = 3000
 
+    server.use(./api', express.json())
     server.use(express.static('public))
 
     app.get('/', (req, res) => {
@@ -82,7 +86,7 @@ Stripe require an account on stripe.com to access the needed public.key and secr
 
     In the terminal: npm init
 
-    Install dependencies: npm install express, npm install stripe, npm installa -g nodemon
+    Install dependencies: npm install express, npm install stripe, npm install dotenv, npm install -g nodemon
 
     Start the server: nodemon server.js, npm start 
 
