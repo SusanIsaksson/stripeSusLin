@@ -9,7 +9,7 @@ const productDB = {
             product_data: {
                 name: "Ladybird"
             },
-            unit_amount: 2200000 
+            unit_amount: 2200000
         },
     },
     "Morilee Princess": {
@@ -32,35 +32,55 @@ const productDB = {
             unit_amount: 3100000
         },
     },
-    
+
 }
 
 
 const addProduct = async (productKey) => {
     let cart = JSON.parse(localStorage.getItem("cart"));
-    
+
     const product = productDB[productKey];
 
-    if(cart == null) {
+    if (cart == null) {
         cart = {}
-    } 
+    }
 
-    if(!cart[productKey]) {
+    if (!cart[productKey]) {
         cart[productKey] = product;
     }
+
 
     cart[productKey].quantity = cart[productKey].quantity || 0;
     cart[productKey].quantity++;
 
-    document.getElementById("cartCounter").innerHTML = cart[productKey].quantity;
-    console.log({ cart, line_items: Object.values(cart) });
+    updateCounter(cart);
 
     localStorage.setItem("cart", JSON.stringify(cart))
 };
 
-document.getElementById("buy_bridedressOne").addEventListener("click", () => addProduct ("Ladybird"))
-document.getElementById("buy_bridedressTwo").addEventListener("click", () => addProduct ("Morilee Princess"))
-document.getElementById("buy_bridedressThree").addEventListener("click", () => addProduct ("Sincerity"))
+function updateCounter(cart) {
+    let amount = 0;
+    let counter = 0;
+
+    if (cart !== null) {
+        
+        for (const key in cart) {
+            if (Object.hasOwnProperty.call(cart, key)) {
+                const cartRow = cart[key];
+                counter += cartRow.quantity
+                amount += cartRow.price_data.unit_amount * cartRow.quantity
+            }
+        }
+
+    }
+
+    document.getElementById("cartCounter").innerHTML = counter;
+
+}
+
+document.getElementById("buy_bridedressOne").addEventListener("click", () => addProduct("Ladybird"))
+document.getElementById("buy_bridedressTwo").addEventListener("click", () => addProduct("Morilee Princess"))
+document.getElementById("buy_bridedressThree").addEventListener("click", () => addProduct("Sincerity"))
 
 async function verify() {
     try {
@@ -90,23 +110,24 @@ async function verify() {
 
 //Co-authored-by: Susan Isaksson <SusanIsaksson@users.noreply.github.com> || Co-authored-by: Linda G <Pindilind@users.noreply.github.com>
 
- async function main() {
-     const isVerified = await verify();
-     console.log(isVerified)
+async function main() {
+    const isVerified = await verify();
+    console.log(isVerified)
 
-     if(localStorage.getItem('session')) {
-     if(isVerified) {
-         alert("Beställningen är mottagen. Tack för ditt köp!")
-         localStorage.removeItem("cart")
-         localStorage.removeItem('session')
-     } else {
-         alert("Beställningen är avbruten. Försök gärna igen!")
-     }
-     
-     
-} 
+    if (localStorage.getItem('session')) {
+        if (isVerified) {
+            alert("Beställningen är mottagen. Tack för ditt köp!")
+            localStorage.removeItem("cart")
+            localStorage.removeItem('session')
+        } else {
+            alert("Beställningen är avbruten. Försök gärna igen!")
+        }
+
+
+    }
 
 }
 
 main();
-
+let cart = JSON.parse(localStorage.getItem("cart"));
+updateCounter(cart);

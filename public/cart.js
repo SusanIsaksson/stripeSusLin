@@ -15,7 +15,8 @@ async function checkoutBtn() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                line_items: Object.values(cart)
+                line_items: Object.values(cart),
+                metadata: cart,
             })
         });
         const { id } = await response.json();
@@ -28,10 +29,11 @@ async function checkoutBtn() {
         console.log(err)
     }
 }
-
 printFromLocal()
 
+
 async function printFromLocal() {
+    document.getElementById("cartCardDiv").innerText = ""
     let cart = JSON.parse(localStorage.getItem("cart"))
     console.log(cart)
 
@@ -39,8 +41,20 @@ async function printFromLocal() {
         cart = {}
     }
 
+    let amount = 0;
+    let counter = 0;
+    for (const key in cart) {
+        if (Object.hasOwnProperty.call(cart, key)) {
+            const cartRow = cart[key];
+            counter+=cartRow.quantity
+            amount+=cartRow.price_data.unit_amount /100 * cartRow.quantity
+        }
+    }
+document.getElementById("totalPriceDiv").innerText = "Totalt pris: " + amount
+
+
     Object.keys(cart).forEach(key => {
-        console.log(key)
+        
         let cartCardDiv = document.getElementById("cartCardDiv")
 
         let productCardDiv = document.createElement("div")
@@ -48,9 +62,6 @@ async function printFromLocal() {
 
         let productCard = document.createElement("div")
         productCard.classList = "container"
-
-        /* let productImg = document.createElement("img")
-        productImg.src = "./assets/" + cart[key].img */
 
         let productTitle = document.createElement("h2")
         productTitle.innerText = key
@@ -61,14 +72,19 @@ async function printFromLocal() {
 
         let productQuantity = document.createElement("h5")
         productQuantity.innerText = "Antal: " + cart[key].quantity 
+        
         let deleteBtn = document.createElement("button") 
         deleteBtn.innerText = "Ta bort"
         deleteBtn.style.width = "100px"
 
+        deleteBtn.addEventListener('click', () => {
+            removeProduct(key);
+        })
+
+
         //Appendar produkter
         productCardDiv.appendChild(productCard)
         productCard.appendChild(productTitle)
-        /* productCard.appendChild(productImg) */
         productCard.appendChild(productPrice)
         productCard.appendChild(productQuantity)
         productCard.appendChild(deleteBtn)
@@ -82,5 +98,16 @@ async function printFromLocal() {
 
 }
 
+function removeProduct(key) {
+    let cart = JSON.parse(localStorage.getItem("cart"))
 
+    cart[key].quantity = cart[key].quantity || 0;
+    cart[key].quantity--;
 
+    if(cart[key].quantity === 0) {
+        delete cart[key]
+    } 
+
+    localStorage.setItem("cart", JSON.stringify(cart))
+    printFromLocal();
+}
