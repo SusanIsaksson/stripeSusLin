@@ -1,0 +1,10 @@
+GET http://localhost:3000/api
+
+###
+
+POST http://localhost:3000/api/session/verify
+Content-Type: application/json
+
+{
+    "sessionId": "cs_test_a1f9KeVfnwfY66308x1DzzBOJeo2g7HDGEGWAoInpBSve9jN7k7hH5bIlb"
+}
