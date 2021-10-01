@@ -44,7 +44,7 @@ server.post('/api/session/verify', async (req, res) => {
                 amount: session.amount_total,
                 customerId: session.customer,
                 customerEmail: session.customer_details.email,
-                /* metadata: session.metadata */
+                metadata: session.metadata
             }
             res.status(200).json({ paid: true })
             fs.writeFileSync('orders.json', JSON.stringify(orderDB))
@@ -62,15 +62,14 @@ server.post('/api/session/verify', async (req, res) => {
 server.post('/api/session/new', async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
+    
         payment_method_types: ['card'],
         line_items: req.body.line_items,
         mode: "payment",
-        /* metadata: {
-            cart: "metadata",
-        }, */
+        metadata: {
+        },
         success_url: 'http://localhost:3000/?session_id={CHECKOUT_SESSION_ID}',
-        /* success_url: "http://localhost:3000/checkout_success.html", */
-        cancel_url: "http://localhost:3000/checkout_failed.html"
+        cancel_url: "http://localhost:3000/"
     });
     console.log(session)
 

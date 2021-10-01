@@ -107,3 +107,17 @@ button {
     margin-top: 20px;
     flex-direction: column;
 }
+
+#emptyCart {
+    background: rgb(248, 240, 226);
+    transition: 0.3s;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    font-family: 'Zeyada', cursive;
+    font-size: 2em;
+    color: rgb(187, 158, 105);
+
+}
